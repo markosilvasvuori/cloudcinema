@@ -68,3 +68,23 @@ body {
     bottom: 50px;
     left: 20px;
 }
+
+/*===== Movie Container =====*/
+
+.movie-container {
+    width: 100%;
+}
+
+.movie-container ul {
+    display: flex;
+    padding: 0;
+}
+
+.movie-container li {
+    list-style: none;
+    width: 20%;
+}
+
+.movie-container img {
+    width: 100%;
+}
