@@ -1,5 +1,6 @@
 const headerNav = document.querySelector('#search');
 const accountButton = document.querySelector('.account-button');
+const mainSlider = document.querySelector('#main-slider');
 const baseUrl = 'https://image.tmdb.org/t/p/'
 const api = '93530160840d922e585f6b81bf62a7a0'
 let searchValue = '';
@@ -51,14 +52,14 @@ function mainSliderMovies() {
             const movies = JSON.parse(xhr.responseText);
             console.log(movies);
 
-            for (let i = 0; i < 1; i += 1) {
+            for (let i = 0; i < 3; i += 1) {
                 let poster = `${baseUrl}original${movies.results[i].backdrop_path}`;
 
                 const div = document.createElement('div');
                 const overlay = document.createElement('div');
                 const infoDiv = document.createElement('div');
-                const title = document.createElement('div');
-                const rating = document.createElement('div');
+                const title = document.createElement('p');
+                const rating = document.createElement('p');
                 const button = document.createElement('button');
                 div.classList.add('slide');
                 div.style.backgroundImage = `url(${poster})`
@@ -69,7 +70,7 @@ function mainSliderMovies() {
                 title.textContent = movies.results[i].title;
                 rating.classList.add('rating');
                 rating.textContent = `${movies.results[i].vote_average} Rating`;
-                button.classList.add('btm');
+                button.classList.add('btn');
                 button.textContent = 'Get Tickets';
 
                 infoDiv.appendChild(title);
@@ -156,3 +157,18 @@ function getNowPlayingMovies() {
 
     xhr.send();
 }
+
+// Slideshow
+window.setInterval(function() {
+    mainSlider.style.transform = 'translate(-100%)';
+}, 5000);
+
+mainSlider.addEventListener('transitionend', function() {
+    mainSlider.appendChild(mainSlider.firstElementChild);
+
+    mainSlider.style.transition = 'none';
+    mainSlider.style.transform = 'translate(0)';
+    setTimeout(function() {
+        mainSlider.style.transition = 'all 0.5s';
+    })
+});

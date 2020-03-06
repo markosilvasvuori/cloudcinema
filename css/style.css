@@ -8,9 +8,23 @@ body {
     margin: 0;
     padding: 0;
     font-family: arial, sans-serif;
+    font-size: 1em;
 }
 
+/*===== UI Elements =====*/
 
+.btn {
+    width: 150px;
+    height: 40px;
+    font-size: 1.0625em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    color: #fff;
+    background-color: #3498db;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
 
 /*===== Overall Layout =====*/
 
@@ -64,24 +78,27 @@ body {
 /*===== Slider =====*/
 
 .slider-container {
-    position: relative;
-    height: 70vh;
+    height: 30vh;
+    overflow: hidden;
 }
 
 #main-slider {
-    width: 100%;
+    display: flex;
+    /* width: 100%; */
     height: 100%;
+    transition: all 0.5s;
 }
 
 .slide {
-    height: 100%;
+    position: relative;
+    min-width: 100%;
+    /* height: 100%; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .overlay {
-    width: 100%;
     height: 100%;
     background-color: #000;
     opacity: 0.3;
@@ -89,9 +106,20 @@ body {
 
 .slider-info {
     position: absolute;
-    bottom: 50px;
-    left: 20px;
+    bottom: 30px;
+    left: 30px;
     color: #fff;
+}
+
+.title {
+    margin: 2px 0;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.rating {
+    margin: 2px 0 6px 0;
+    font-size: 1.0625em;
 }
 
 /*===== Movie Container =====*/
