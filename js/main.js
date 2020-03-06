@@ -34,9 +34,55 @@ searchInput.onblur = function() {
 
 // API
 window.onload = () => {
+    mainSliderMovies();
     getUpcomingMovies();
     getPopularMovies();
     getNowPlayingMovies();
+}
+
+function mainSliderMovies() {
+    const mainSlider = document.querySelector('#main-slider');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `https://api.themoviedb.org/3/movie/upcoming?api_key=${api}&language=en-US&page=1`, true);
+
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            const movies = JSON.parse(xhr.responseText);
+            console.log(movies);
+
+            for (let i = 0; i < 1; i += 1) {
+                let poster = `${baseUrl}original${movies.results[i].backdrop_path}`;
+
+                const div = document.createElement('div');
+                const overlay = document.createElement('div');
+                const infoDiv = document.createElement('div');
+                const title = document.createElement('div');
+                const rating = document.createElement('div');
+                const button = document.createElement('button');
+                div.classList.add('slide');
+                div.style.backgroundImage = `url(${poster})`
+                div.setAttribute(`id`, `slide-${[i]}`);
+                overlay.classList.add('overlay');
+                infoDiv.classList.add('slider-info');
+                title.classList.add('title');
+                title.textContent = movies.results[i].title;
+                rating.classList.add('rating');
+                rating.textContent = `${movies.results[i].vote_average} Rating`;
+                button.classList.add('btm');
+                button.textContent = 'Get Tickets';
+
+                infoDiv.appendChild(title);
+                infoDiv.appendChild(rating);
+                infoDiv.appendChild(button);
+                div.appendChild(overlay);
+                div.appendChild(infoDiv);
+                mainSlider.appendChild(div);
+            }
+        }
+    }
+
+    xhr.send();
 }
 
 function getUpcomingMovies() {
