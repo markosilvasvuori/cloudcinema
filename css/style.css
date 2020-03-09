@@ -130,7 +130,7 @@ body {
     margin: 0 10px;
     list-style: none;
     min-width: 115px;
-    max-width: 150px;
+    max-width: 170px;
 }
 
 /*===== Movie Container =====*/
@@ -234,5 +234,33 @@ footer li {
     .footer-container {
         width: 100%;
         justify-content: space-between;
+    }
+
+    .slider-info {
+        bottom: 100px;
+        left: 100px;
+    }
+
+    .title {
+        margin: 2px 0;
+        font-size: 2.25em;
+    }
+    
+    .rating {
+        margin: 2px 0 6px 0;
+        font-size: 2.0625em;
+    }
+
+    .btn {
+        width: 270px;
+        height: 72px;
+        font-size: 2.0625em;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .slider-info {
+        bottom: 100px;
+        left: 400px;
     }
 }
