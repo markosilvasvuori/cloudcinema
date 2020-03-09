@@ -75,7 +75,7 @@ body {
     cursor: pointer;
 }
 
-/*===== Slider =====*/
+/*===== Main Slider =====*/
 
 .slider-container {
     height: 30vh;
@@ -84,7 +84,6 @@ body {
 
 #main-slider {
     display: flex;
-    /* width: 100%; */
     height: 100%;
     transition: all 0.5s;
 }
@@ -92,7 +91,6 @@ body {
 .slide {
     position: relative;
     min-width: 100%;
-    /* height: 100%; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -122,26 +120,119 @@ body {
     font-size: 1.0625em;
 }
 
+/*===== Slider =====*/
+.slider {
+    width: 95vw;
+    overflow-x: scroll;
+}
+
+.slider li {
+    margin: 0 10px;
+    list-style: none;
+    min-width: 115px;
+    max-width: 150px;
+}
+
 /*===== Movie Container =====*/
 
 .movie-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 40px;
+}
+
+.movie-container h2 {
+    font-size: 1.25em;
+    margin: 0;
+    padding-left: 10px;
 }
 
 .movie-container ul {
     display: flex;
+    margin-top: 7px;
+    margin-bottom: 32px;
     padding: 0;
-}
-
-.movie-container li {
-    margin: 0 10px;
-    list-style: none;
-    width: 20%;
-    max-width: 270px;
 }
 
 .movie-container img {
     width: 100%;
+}
+
+/*===== Footer =====*/
+
+footer {
+    align-items: center;
+    padding: 30px 10px;
+    background-color: #333;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer p {
+    font-weight: bold;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+footer ul {
+    padding: 0;
+    margin-top: 0;
+    margin-right: 20px;
+}
+
+footer li {
+    font-size: 0.9em;
+    line-height: 1.4em;
+    list-style: none;
+}
+
+.footer-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.made-by {
+    color: #fff;
+    background-color: #57606f;
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin-top: 30px;
+    width: 213px;
+}
+
+.tmdb-logo {
+    width: 100px;
+}
+
+/*===== Media Queries =====*/
+
+@media screen and (min-width: 412px) {
+    .slider-container {
+        height: 40vh;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .slider-container {
+        min-height: 600px;
+    }
+
+    footer {
+        padding: 30px 90px;
+    }
+
+    .made-by {
+        margin: 0;
+        align-self: flex-start;
+    }
+    
+    .footer-container {
+        width: 100%;
+        justify-content: space-between;
+    }
 }

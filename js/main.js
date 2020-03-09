@@ -1,6 +1,7 @@
 const headerNav = document.querySelector('#search');
 const accountButton = document.querySelector('.account-button');
 const mainSlider = document.querySelector('#main-slider');
+const slider = document.querySelector('.slider');
 const baseUrl = 'https://image.tmdb.org/t/p/'
 const api = '93530160840d922e585f6b81bf62a7a0'
 let searchValue = '';
@@ -158,7 +159,7 @@ function getNowPlayingMovies() {
     xhr.send();
 }
 
-// Slideshow
+// Main Slider
 window.setInterval(function() {
     mainSlider.style.transform = 'translate(-100%)';
 }, 5000);
@@ -172,3 +173,5 @@ mainSlider.addEventListener('transitionend', function() {
         mainSlider.style.transition = 'all 0.5s';
     })
 });
+
+// Slider 

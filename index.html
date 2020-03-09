@@ -10,7 +10,7 @@
     <body>
         <div class="wrapper">
             <header class="main-header">
-                <a class="logo" href="index.html">Logo</a>
+                <a class="logo" href="index.html">Cinemaflix</a>
                 <div id="header-nav">
                     <a href="#"><img class="account-button" src="img/account-icon.svg" alt=""></a>
                     <form id="search" action="#" method="get">
@@ -19,30 +19,47 @@
                 </div>
             </header>
 
-            <!-- Slider -->
+            <!-- Main Slider -->
             <div class="slider-container">
-                <div class="slider" id="main-slider"></div>
+                <div id="main-slider"></div>
             </div>
-            <!-- /Slider -->
+            <!-- /Main Slider -->
 
             <div class="movie-container">
-                <div id="upcoming">
-                    <h2>UPCOMING</h2>
-                    <ul></ul>
-                </div>
-
                 <div id="popular">
                     <h2>POPULAR</h2>
-                    <ul></ul>
+                    <ul class="slider"></ul>
+                </div>
+
+                <div id="upcoming">
+                    <h2>UPCOMING</h2>
+                    <ul class="slider"></ul>
                 </div>
 
                 <div id="now-playing">
                     <h2>NOW PLAYING</h2>
-                    <ul></ul>
+                    <ul class="slider"></ul>
                 </div>
             </div> <!-- /.movie-container -->
 
         </div> <!-- /.wrapper -->
+
+        <footer class="wrapper">
+            <div class="footer-container">
+                <ul>
+                    <p>Explore</p>
+                    <li><a href="#">Popular</a></li>
+                    <li><a href="#">Upcoming</a></li>
+                    <li><a href="#">Now Playing</a></li>
+                </ul>
+
+                <a href="https://www.themoviedb.org/" target="_blank">
+                <img class="tmdb-logo" src="img/tmdb-logo.svg" alt="The Movie Database Logo">
+                </a>
+            </div>
+
+            <a class="made-by" href="#">Made by Marko Silvasvuori</a>
+        </footer>
 
         <script src="js/main.js"></script>
     </body>
