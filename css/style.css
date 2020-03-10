@@ -31,6 +31,8 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    max-width: 1920px;
 }
 
 /*===== Header =====*/
@@ -123,14 +125,15 @@ body {
 /*===== Slider =====*/
 .slider {
     width: 95vw;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .slider li {
     margin: 0 10px;
     list-style: none;
-    min-width: 115px;
-    max-width: 170px;
+    min-width: 130px; /*115px;*/
+    max-width: 220px; /*170px;*/
+    cursor: pointer;
 }
 
 /*===== Movie Container =====*/
@@ -142,21 +145,45 @@ body {
     padding-top: 40px;
 }
 
-.movie-container h2 {
-    font-size: 1.25em;
-    margin: 0;
-    padding-left: 10px;
-}
-
 .movie-container ul {
     display: flex;
     margin-top: 7px;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
     padding: 0;
+    max-width: 1430px;
 }
 
 .movie-container img {
     width: 100%;
+}
+
+#popular a, #upcoming a, #now_playing a {
+    margin: 0;
+    padding-left: 10px;
+    font-size: 1.25em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+}
+
+#popular, #upcoming, #now_playing {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.view-all {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: 30px;
+    font-size: 1.0625em;
+    text-transform: uppercase;
+    border: none;
+    color: #fff;
+    background-color: #3498db;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /*===== Footer =====*/
@@ -211,15 +238,9 @@ footer li {
 
 /*===== Media Queries =====*/
 
-@media screen and (min-width: 412px) {
-    .slider-container {
-        height: 40vh;
-    }
-}
-
 @media screen and (min-width: 768px) {
     .slider-container {
-        min-height: 600px;
+        min-height: 450px;
     }
 
     footer {
@@ -258,7 +279,22 @@ footer li {
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
+    .slider {
+        width: 90vw;
+    }
+
+    .slider-info {
+        bottom: 100px;
+        left: 130px;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .slider-container {
+        min-height: 600px;
+    }
+
     .slider-info {
         bottom: 100px;
         left: 400px;
