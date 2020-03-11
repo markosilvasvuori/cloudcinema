@@ -136,6 +136,14 @@ body {
     cursor: pointer;
 }
 
+.slider li img {
+    width: 100%;
+}
+
+.slider li a {
+    display: block;
+}
+
 /*===== Movie Container =====*/
 
 .movie-container {
@@ -153,13 +161,9 @@ body {
     max-width: 1430px;
 }
 
-.movie-container img {
-    width: 100%;
-}
-
-#popular a, #upcoming a, #now_playing a {
-    margin: 0;
+#popular span, #upcoming span, #now_playing span {
     padding-left: 10px;
+    margin: 0;
     font-size: 1.25em;
     font-weight: bold;
     text-decoration: none;

@@ -38,16 +38,19 @@ searchInput.onblur = function() {
 const currentUrl = window.location.href;
 let url = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
 
-// API
+// Homepage functions
 if (url === 'index.html') {
-    
+
     window.onload = () => {
         mainSliderMovies();
         getMovies('popular');
         getMovies('upcoming');
         getMovies('now_playing');
+        switchSlides();
     }
+}
 
+// API
     function mainSliderMovies() {
         const mainSlider = document.querySelector('#main-slider');
 
@@ -94,19 +97,21 @@ if (url === 'index.html') {
     }
 
     // Main Slider
-    window.setInterval(function() {
-        mainSlider.style.transform = 'translate(-100%)';
-    }, 5000);
+    function switchSlides() {
+        window.setInterval(function() {
+            mainSlider.style.transform = 'translate(-100%)';
+        }, 5000);
 
-    mainSlider.addEventListener('transitionend', function() {
-        mainSlider.appendChild(mainSlider.firstElementChild);
+        mainSlider.addEventListener('transitionend', function() {
+            mainSlider.appendChild(mainSlider.firstElementChild);
 
-        mainSlider.style.transition = 'none';
-        mainSlider.style.transform = 'translate(0)';
-        setTimeout(function() {
-            mainSlider.style.transition = 'all 0.5s';
-        })
-    });
+            mainSlider.style.transition = 'none';
+            mainSlider.style.transform = 'translate(0)';
+            setTimeout(function() {
+                mainSlider.style.transition = 'all 0.5s';
+            })
+        });
+    }
 
     // Homepage movies (popular, upcoming, now playing)
     function getMovies(category) {
@@ -125,14 +130,15 @@ if (url === 'index.html') {
                     // output += `<li><a href="movie.html"><img src="${poster}" alt=""></a></li>`
                     output += `
                     <li
-                    data-title="${baseUrl}${movies.results[i].title}"
-                    data-release-date="${baseUrl}${movies.results[i].release_date}"
-                    data-rating="${baseUrl}${movies.results[i].vote_average}"
-                    data-overview="${baseUrl}${movies.results[i].overview}"
+                    data-title="${movies.results[i].title}"
+                    data-release-date="${movies.results[i].release_date}"
+                    data-rating="${movies.results[i].vote_average}"
+                    data-overview="${movies.results[i].overview}"
                     data-backdrop="${baseUrl}original${movies.results[i].backdrop_path}"
                     data-poster="${baseUrl}w500${movies.results[i].poster_path}"
-                    onclick="storeData(this)">
-                    <a href="movie.html">
+                    onclick="storeData(this)"
+                    >
+                    <a href="#">
                     <img src="${poster}" alt="">
                     </a>
                     </li>`
@@ -144,32 +150,37 @@ if (url === 'index.html') {
 
         xhr.send();
     }
-}
 
-// Store data to build movie pages
+// Store data to build movie page
 function storeData(e) {
-    const title = e.getAttribute('data-title');
-    const releaseDate = e.getAttribute('data-release-date');
-    const rating = e.getAttribute('data-rating');
-    const overview = e.getAttribute('data-overview');
-    const backdrop = e.getAttribute('data-backdrop');
-    const poster = e.getAttribute('data-poster');
+    const movieDataArray = {
+        title: e.getAttribute('data-title'),
+        releaseDate: e.getAttribute('data-release-date'),
+        rating: e.getAttribute('data-rating'),
+        overview: e.getAttribute('data-overview'),
+        backdrop: e.getAttribute('data-backdrop'),
+        poster: e.getAttribute('data-poster')
+    };
 
-    dataStorage.push(title);
-    dataStorage.push(releaseDate);
-    dataStorage.push(rating);
-    dataStorage.push(overview);
-    dataStorage.push(backdrop);
-    dataStorage.push(poster);
-
-    sessionStorage.setItem('dataStorageKey', dataStorage);
+    sessionStorage.setItem('movieData', JSON.stringify(movieDataArray));
+    window.location = 'movie.html';
 }
 
-// Load stored data
+// Movie page
 if (url === 'movie.html') {
-    if (sessionStorage.getItem('dataStorageKey')) {
-        dataStorage = sessionStorage.getItem('dataStorageKey');
+
+    // Load stored data
+    window.onload = () => {
+        let movieDataArray = sessionStorage.getItem('movieData');
+        let movie = JSON.parse(movieDataArray);
+        console.log(movie)
+
+    // Build movie page
+    const info = document.querySelector('.info-container');
+
+    const title = document.createElement('h2');
+    title.textContent = dataStorage[0];
+    info.appendChild(title);
     }
-    
-    console.log(dataStorage)
-}
+
+} // !movie.html
