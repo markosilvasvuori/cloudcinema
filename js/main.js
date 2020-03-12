@@ -40,7 +40,6 @@ let url = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
 
 // Homepage functions
 if (url === 'index.html') {
-
     window.onload = () => {
         mainSliderMovies();
         getMovies('popular');
@@ -51,105 +50,102 @@ if (url === 'index.html') {
 }
 
 // API
-    function mainSliderMovies() {
-        const mainSlider = document.querySelector('#main-slider');
+function mainSliderMovies() {
+    const mainSlider = document.querySelector('#main-slider');
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', `https://api.themoviedb.org/3/movie/upcoming?api_key=${api}&language=en-US&page=1`, true);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `https://api.themoviedb.org/3/movie/upcoming?api_key=${api}&language=en-US&page=1`, true);
 
-        xhr.onload = function() {
-            if (xhr.status == 200) {
-                const movies = JSON.parse(xhr.responseText);
-                console.log(movies);
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            const movies = JSON.parse(xhr.responseText);
+            console.log(movies);
 
-                for (let i = 0; i < 3; i += 1) {
-                    let poster = `${baseUrl}original${movies.results[i].backdrop_path}`;
+            for (let i = 0; i < 3; i += 1) {
+                let poster = `${baseUrl}original${movies.results[i].backdrop_path}`;
 
-                    const div = document.createElement('div');
-                    const overlay = document.createElement('div');
-                    const infoDiv = document.createElement('div');
-                    const title = document.createElement('p');
-                    const rating = document.createElement('p');
-                    const button = document.createElement('button');
-                    div.classList.add('slide');
-                    div.style.backgroundImage = `url(${poster})`
-                    div.setAttribute(`id`, `slide-${[i]}`);
-                    overlay.classList.add('overlay');
-                    infoDiv.classList.add('slider-info');
-                    title.classList.add('title');
-                    title.textContent = movies.results[i].title;
-                    rating.classList.add('rating');
-                    rating.textContent = `${movies.results[i].vote_average} Rating`;
-                    button.classList.add('btn');
-                    button.textContent = 'Get Tickets';
+                const div = document.createElement('div');
+                const overlay = document.createElement('div');
+                const infoDiv = document.createElement('div');
+                const title = document.createElement('p');
+                const rating = document.createElement('p');
+                const button = document.createElement('button');
+                div.classList.add('slide');
+                div.style.backgroundImage = `url(${poster})`
+                div.setAttribute(`id`, `slide-${[i]}`);
+                overlay.classList.add('overlay');
+                infoDiv.classList.add('slider-info');
+                title.classList.add('title');
+                title.textContent = movies.results[i].title;
+                rating.classList.add('rating');
+                rating.textContent = `${movies.results[i].vote_average} Rating`;
+                button.classList.add('btn');
+                button.textContent = 'Get Tickets';
 
-                    infoDiv.appendChild(title);
-                    infoDiv.appendChild(rating);
-                    infoDiv.appendChild(button);
-                    div.appendChild(overlay);
-                    div.appendChild(infoDiv);
-                    mainSlider.appendChild(div);
-                }
+                infoDiv.appendChild(title);
+                infoDiv.appendChild(rating);
+                infoDiv.appendChild(button);
+                div.appendChild(overlay);
+                div.appendChild(infoDiv);
+                mainSlider.appendChild(div);
             }
         }
-
-        xhr.send();
     }
 
-    // Main Slider
-    function switchSlides() {
-        window.setInterval(function() {
-            mainSlider.style.transform = 'translate(-100%)';
-        }, 5000);
+    xhr.send();
+}
 
-        mainSlider.addEventListener('transitionend', function() {
-            mainSlider.appendChild(mainSlider.firstElementChild);
+// Main Slider
+function switchSlides() {
+    window.setInterval(function() {
+        mainSlider.style.transform = 'translate(-100%)';
+    }, 5000);
 
-            mainSlider.style.transition = 'none';
-            mainSlider.style.transform = 'translate(0)';
-            setTimeout(function() {
-                mainSlider.style.transition = 'all 0.5s';
-            })
-        });
-    }
+    mainSlider.addEventListener('transitionend', function() {
+        mainSlider.appendChild(mainSlider.firstElementChild);
 
-    // Homepage movies (popular, upcoming, now playing)
-    function getMovies(category) {
-        const section = document.querySelector(`#${category} ul`);
-        let output = '';
+        mainSlider.style.transition = 'none';
+        mainSlider.style.transform = 'translate(0)';
+        setTimeout(function() {
+            mainSlider.style.transition = 'all 0.5s';
+        })
+    });
+}
 
-        const xhr = new XMLHttpRequest();
-        xhr.open(`GET`, `https://api.themoviedb.org/3/movie/${category}?api_key=${api}&language=en-US&page=1`, true);
+// Homepage movies (popular, upcoming, now playing)
+function getMovies(category) {
+    const section = document.querySelector(`#${category} ul`);
+    let output = '';
 
-        xhr.onload = function() {
-            if (xhr.status == 200) {
-                const movies = JSON.parse(xhr.responseText);
+    const xhr = new XMLHttpRequest();
+    xhr.open(`GET`, `https://api.themoviedb.org/3/movie/${category}?api_key=${api}&language=en-US&page=1`, true);
 
-                for (let i = 0; i < 6; i++) {
-                    let poster = `${baseUrl}w500${movies.results[i].poster_path}`
-                    // output += `<li><a href="movie.html"><img src="${poster}" alt=""></a></li>`
-                    output += `
-                    <li
-                    data-title="${movies.results[i].title}"
-                    data-release-date="${movies.results[i].release_date}"
-                    data-rating="${movies.results[i].vote_average}"
-                    data-overview="${movies.results[i].overview}"
-                    data-backdrop="${baseUrl}original${movies.results[i].backdrop_path}"
-                    data-poster="${baseUrl}w500${movies.results[i].poster_path}"
-                    onclick="storeData(this)"
-                    >
-                    <a href="#">
-                    <img src="${poster}" alt="">
-                    </a>
-                    </li>`
-                }
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            const movies = JSON.parse(xhr.responseText);
 
-                section.innerHTML += output;
+            for (let i = 0; i < 6; i++) {
+                let poster = `${baseUrl}w185${movies.results[i].poster_path}`
+                output += `
+                <li
+                data-title="${movies.results[i].title}"
+                data-release-date="${movies.results[i].release_date}"
+                data-rating="${movies.results[i].vote_average}"
+                data-overview="${movies.results[i].overview}"
+                data-backdrop="${baseUrl}original${movies.results[i].backdrop_path}"
+                data-poster="${baseUrl}w500${movies.results[i].poster_path}"
+                onclick="storeData(this)"
+                >
+                <img src="${poster}" alt="">
+                </li>`
             }
-        }
 
-        xhr.send();
+            section.innerHTML += output;
+        }
     }
+
+    xhr.send();
+}
 
 // Store data to build movie page
 function storeData(e) {
@@ -168,19 +164,30 @@ function storeData(e) {
 
 // Movie page
 if (url === 'movie.html') {
+ // Movie page functions here
+ buildMoviePage();
+}
 
+function buildMoviePage() {
     // Load stored data
     window.onload = () => {
         let movieDataArray = sessionStorage.getItem('movieData');
         let movie = JSON.parse(movieDataArray);
         console.log(movie)
 
-    // Build movie page
-    const info = document.querySelector('.info-container');
+        // Build movie page
+        const pageContainer = document.querySelector('.movie-page-container');
+        const title = document.querySelector('.movie-title');
+        const releaseDate = document.querySelector('.release-date');
+        const rating = document.querySelector('.movie-rating');
+        const overview = document.querySelector('.overview p');
+        const poster = document.querySelector('.movie-poster');
 
-    const title = document.createElement('h2');
-    title.textContent = dataStorage[0];
-    info.appendChild(title);
+        title.textContent = movie['title'];
+        releaseDate.textContent = movie['releaseDate'].slice(0, 4); // Get year only
+        rating.textContent = `${movie['rating']} Rating`;
+        overview.textContent = movie['overview'];
+        poster.src = movie['poster'];
+        pageContainer.style.backgroundImage = `url(${movie['backdrop']})`;
     }
-
-} // !movie.html
+}
