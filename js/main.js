@@ -81,6 +81,13 @@ function mainSliderMovies() {
                 rating.textContent = `${movies.results[i].vote_average} Rating`;
                 button.classList.add('btn');
                 button.textContent = 'Get Tickets';
+                button.setAttribute('data-title', movies.results[i].title);
+                button.setAttribute('data-release-date', movies.results[i].release_date);
+                button.setAttribute('data-rating', movies.results[i].vote_average);
+                button.setAttribute('data-overview', movies.results[i].overview);
+                button.setAttribute('data-backdrop', `${baseUrl}original${movies.results[i].backdrop_path}`);
+                button.setAttribute('data-poster', `${baseUrl}w500${movies.results[i].poster_path}`);
+                button.setAttribute('onclick', 'storeData(this)');
 
                 infoDiv.appendChild(title);
                 infoDiv.appendChild(rating);
