@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>Cinemaflix</title>
         <link rel="stylesheet" href="css/style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
+
 
     <body>
         <div class="wrapper">
@@ -19,34 +19,13 @@
                 </div>
             </header>
 
-            <!-- Main Slider -->
-            <div class="slider-container">
-                <div id="main-slider"></div>
-            </div>
-            <!-- /Main Slider -->
-
-            <div class="movie-container">
-                <div id="popular">
-                    <span>POPULAR</span>
-                    <ul class="slider"></ul>
-                    <button class="view-all" type="button" onclick="viewAll('popular', 30)">View all</button>
-                </div>
-
-                <div id="upcoming">
-                    <span>UPCOMING</span>
-                    <ul class="slider"></ul>
-                    <button class="view-all" type="button" onclick="viewAll('upcoming', 20)">View all</button>
-                </div>
-
-                <div id="now_playing">
-                    <span>NOW PLAYING</span>
-                    <ul class="slider"></ul>
-                    <button class="view-all" type="button" onclick="viewAll('now_playing', 30)">View all</button>
-                </div>
-            </div> <!-- /.movie-container -->
+            <div class="movie-list">
+                <h2></h2>
+                <ul></ul>
+            </div> <!-- /.movie-list -->
 
         </div> <!-- /.wrapper -->
-
+        
         <footer>
             <div class="footer-container">
                 <ul>

@@ -42,9 +42,9 @@ let url = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
 if (url === 'index.html') {
     window.onload = () => {
         mainSliderMovies();
-        getMovies('popular');
-        getMovies('upcoming');
-        getMovies('now_playing');
+        getMovies('popular', 6);
+        getMovies('upcoming', 6);
+        getMovies('now_playing', 6);
         switchSlides();
     }
 }
@@ -120,7 +120,7 @@ function switchSlides() {
 }
 
 // Homepage movies (popular, upcoming, now playing)
-function getMovies(category) {
+function getMovies(category, movieCount) {
     const section = document.querySelector(`#${category} ul`);
     let output = '';
 
@@ -131,7 +131,7 @@ function getMovies(category) {
         if (xhr.status == 200) {
             const movies = JSON.parse(xhr.responseText);
 
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < movieCount; i++) {
                 let poster = `${baseUrl}w185${movies.results[i].poster_path}`
                 output += `
                 <li
@@ -152,6 +152,44 @@ function getMovies(category) {
     }
 
     xhr.send();
+}
+
+// View all button
+function viewAll(category, movieCount) {
+    const selectedCategory = category;
+    sessionStorage.setItem('selected', JSON.stringify(selectedCategory));
+    sessionStorage.setItem('count', JSON.stringify(movieCount));
+    window.location = 'view-all.html';
+}
+
+// Category page
+if (url === 'view-all.html') {
+    // View All page functions here
+    buildViewAll();
+}
+
+function buildViewAll() {
+    // Load stored data
+    window.onload = () => {
+        let selectedCategory = sessionStorage.getItem('selected');
+        let movieCount = sessionStorage.getItem('count');
+        let category = JSON.parse(selectedCategory);
+        let count = JSON.parse(movieCount);
+        console.log(category);
+        console.log(count);
+
+        // Build View All page
+        document.querySelector('.movie-list').setAttribute('id', category);
+        let title = document.querySelector('.movie-list h2');
+        
+        if (category === 'now_playing') {
+            title.textContent = 'now playing';
+        } else {
+            title.textContent = category;
+        }
+
+        getMovies(category, count);
+    }
 }
 
 // Store data to build movie page
@@ -182,7 +220,7 @@ function buildMoviePage() {
         let movie = JSON.parse(movieDataArray);
         console.log(movie)
 
-        // Build movie page
+        // Build Movie page
         const pageContainer = document.querySelector('.movie-page-container');
         const title = document.querySelector('.movie-title');
         const releaseDate = document.querySelector('.release-date');
