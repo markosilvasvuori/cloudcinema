@@ -132,6 +132,7 @@ body {
 }
 
 /*===== Slider =====*/
+
 .slider {
     width: 95vw;
     overflow-x: auto;
@@ -140,8 +141,8 @@ body {
 .slider li {
     margin: 0 10px;
     list-style: none;
-    min-width: 130px; /*115px;*/
-    max-width: 185px; /*220px;*/
+    min-width: 130px;
+    max-width: 185px;
     cursor: pointer;
 }
 
@@ -151,11 +152,6 @@ body {
 
 .slider li a {
     display: block;
-}
-
-.list-placeholder {
-    background-color: #333;
-    border-radius: 5px;
 }
 
 /*===== Movie Container =====*/
@@ -202,6 +198,44 @@ body {
     background-color: #3498db;
     cursor: pointer;
     font-weight: bold;
+}
+
+/*===== View All Page =====*/
+
+.movie-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.movie-list h2 {
+    align-self: flex-start;
+    padding-left: 10px;
+    margin-top: 40px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.movie-list ul {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0;
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+.movie-list li {
+    width: calc(50% - 20px);
+    margin: 10px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.movie-list li img {
+    width: 100%;
 }
 
 /*===== Movie Page =====*/
@@ -377,6 +411,13 @@ footer li {
         font-size: 2.0625em;
     }
 
+    /* View All page */
+
+
+    .movie-list li {
+        width: calc(25% - 20px);
+    }
+
     /* Movie Page */
 
     .info-container {
@@ -406,6 +447,8 @@ footer li {
         bottom: 100px;
         left: 130px;
     }
+
+    /* View All page */
 
      /* Movie Page */
 
@@ -444,6 +487,22 @@ footer li {
     .slider-info {
         bottom: 100px;
         left: 400px;
+    }
+
+    /* View All page */
+
+    .movie-list {
+        width: 90vw;
+        max-width: 1230px;
+        align-self: center;
+    }
+
+    .movie-list ul {
+        width: 100%;
+    }
+
+    .movie-list li {
+        width: calc(16.6% - 20px);
     }
 
     /* Movie Page */
