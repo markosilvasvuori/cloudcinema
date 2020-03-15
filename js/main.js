@@ -99,12 +99,16 @@ function mainSliderMovies() {
         }
     }
 
+    xhr.onerror = function() {
+        errorMessage('#main-slider');
+    }
+
     xhr.send();
 }
 
 // Main Slider
 function switchSlides() {
-    window.setInterval(function() {
+    timer = setInterval(function() {
         mainSlider.style.transform = 'translate(-100%)';
     }, 5000);
 
@@ -118,7 +122,7 @@ function switchSlides() {
         })
     });
 }
-
+ 
 // Homepage movies (popular, upcoming, now playing)
 function getMovies(category, movieCount) {
     const section = document.querySelector(`#${category} ul`);
@@ -151,7 +155,32 @@ function getMovies(category, movieCount) {
         }
     }
 
+    xhr.onerror = function() {
+        if (url != 'view-all.html') {
+        errorMessage(`#${category} ul`);
+        } else {
+            errorMessage('.movie-list');
+        }
+    }
+
     xhr.send();
+}
+
+// Error message
+function errorMessage(selector) {
+    if (url === 'index.html') {
+        clearInterval(timer); // Stop Main Slider
+    }
+        const mainSlider = document.querySelector(selector);
+        const p = document.createElement('p');
+        p.classList.add('error-message');
+
+        p.innerHTML = `
+        Server Error
+        <br>
+        <a onclick="location.reload()">Try Again</a>
+        `
+        mainSlider.appendChild(p);
 }
 
 // View all button
@@ -162,7 +191,7 @@ function viewAll(category, movieCount) {
     window.location = 'view-all.html';
 }
 
-// Category page
+// View All page
 if (url === 'view-all.html') {
     // View All page functions here
     buildViewAll();

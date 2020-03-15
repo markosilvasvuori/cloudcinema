@@ -32,6 +32,21 @@ body {
     cursor: pointer;
 }
 
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 0 auto;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.error-message a {
+    font-weight: bold;
+    cursor: pointer;
+    color: #3498db;
+}
+
 /*===== Overall Layout =====*/
 
 .wrapper {
