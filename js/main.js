@@ -1,14 +1,27 @@
 const accountButton = document.querySelector('.account-button');
+const loginForm = document.querySelector('.login-form');
 const mainSlider = document.querySelector('#main-slider');
 const baseUrl = 'https://image.tmdb.org/t/p/'
 const api = '93530160840d922e585f6b81bf62a7a0'
 let searchValue = '';
 let dataStorage = [];
 
+// Login modal
+window.addEventListener('click', (e) => {
+    if (accountButton.contains(e.target) || loginForm.contains(e.target)) {
+        e.preventDefault();
+        loginForm.style.display = 'flex';
+    } else {
+        loginForm.style.display = 'none';
+    }
+});
+
 // Search
     const searchForm = document.querySelector('#search')
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
+    const mediaQuery = window.matchMedia('(max-width: 590px)');
+    const logo = document.querySelector('.logo');
     searchInput.style.display = 'none';
 
     window.addEventListener('click', (e) => {
@@ -20,6 +33,13 @@ let dataStorage = [];
                 accountButton.style.display = 'none';
                 searchInput.style.display = 'block';
                 searchInput.focus();
+
+                // If screen width is less than mediaQuery, hide logo
+                if (mediaQuery.matches) {
+                    logo.style.display = 'none';
+                } else {
+                    logo.style.display = 'block';
+                }
             // Commit search if search input has value
             } else if (searchButton.contains(e.target) || e.keyCode === 13) {
                 e.preventDefault();
@@ -29,6 +49,7 @@ let dataStorage = [];
             }
         } else {
             // If we clicked outside Search Form, hide search input
+            logo.style.display = 'block';
             searchInput.style.display = 'none';
             accountButton.style.display = 'block';
             searchValue = searchInput.value;
