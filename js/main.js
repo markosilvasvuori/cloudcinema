@@ -1,27 +1,59 @@
 const accountButton = document.querySelector('.account-button');
 const loginForm = document.querySelector('.login-form');
+const searchForm = document.querySelector('#search')
+const searchInput = document.querySelector('.search-input');
+const searchButton = document.querySelector('.search-button');
+const mediaQuery = window.matchMedia('(max-width: 590px)');
+const logo = document.querySelector('.logo');
 const mainSlider = document.querySelector('#main-slider');
 const baseUrl = 'https://image.tmdb.org/t/p/'
 const api = '93530160840d922e585f6b81bf62a7a0'
 let searchValue = '';
 let dataStorage = [];
 
-// Login modal
-window.addEventListener('click', (e) => {
-    if (accountButton.contains(e.target) || loginForm.contains(e.target)) {
-        e.preventDefault();
-        loginForm.style.display = 'flex';
-    } else {
-        loginForm.style.display = 'none';
+// Login form
+    window.addEventListener('click', (e) => {
+        if (accountButton.contains(e.target) || loginForm.contains(e.target)) {
+            e.preventDefault();
+            loginForm.style.display = 'flex';
+        } else {
+            loginForm.style.display = 'none';
+        }
+    });
+
+// Check current page
+    const currentUrl = window.location.href;
+    let url = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
+
+// Homepage functions
+    if (url === 'index.html') {
+        window.onload = () => {
+            mainSliderMovies();
+            getMovies('popular', 6);
+            getMovies('upcoming', 6);
+            getMovies('now_playing', 6);
+            switchSlides();
+        }
     }
-});
+
+// Search page functions
+    if (url === 'search.html') {
+    window.onload = () => {
+        search();
+        }
+    }
+
+// View All page functions
+    if (url === 'view-all.html') {
+        buildViewAll();
+    }
+
+// Movie page functions
+    if (url === 'movie.html') {
+        buildMoviePage();
+    }
 
 // Search
-    const searchForm = document.querySelector('#search')
-    const searchInput = document.querySelector('.search-input');
-    const searchButton = document.querySelector('.search-button');
-    const mediaQuery = window.matchMedia('(max-width: 590px)');
-    const logo = document.querySelector('.logo');
     searchInput.style.display = 'none';
 
     window.addEventListener('click', (e) => {
@@ -110,29 +142,7 @@ window.addEventListener('click', (e) => {
         xhr.send();
     }
 
-// Check current page
-    const currentUrl = window.location.href;
-    let url = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
-
-// Homepage functions
-    if (url === 'index.html') {
-        window.onload = () => {
-            mainSliderMovies();
-            getMovies('popular', 6);
-            getMovies('upcoming', 6);
-            getMovies('now_playing', 6);
-            switchSlides();
-        }
-    }
-
-// Search page functions
-if (url === 'search.html') {
-    window.onload = () => {
-        search();
-    }
-}
-
-// API
+// Main Slider movies
     function mainSliderMovies() {
         const mainSlider = document.querySelector('#main-slider');
 
@@ -249,23 +259,6 @@ if (url === 'search.html') {
         xhr.send();
     }
 
-// Error message
-    function errorMessage(selector) {
-        if (url === 'index.html') {
-            clearInterval(timer); // Stop Main Slider
-        }
-            const mainSlider = document.querySelector(selector);
-            const p = document.createElement('p');
-            p.classList.add('error-message');
-
-            p.innerHTML = `
-            Server Error
-            <br>
-            <a onclick="location.reload()">Try Again</a>
-            `
-            mainSlider.appendChild(p);
-    }
-
 // View all button
     function viewAll(category, movieCount) {
         const selectedCategory = category;
@@ -275,11 +268,6 @@ if (url === 'search.html') {
     }
 
 // View All page
-    if (url === 'view-all.html') {
-        // View All page functions here
-        buildViewAll();
-    }
-
     function buildViewAll() {
         // Load stored data
         window.onload = () => {
@@ -288,7 +276,6 @@ if (url === 'search.html') {
             let category = JSON.parse(selectedCategory);
             let count = JSON.parse(movieCount);
             console.log(category);
-            console.log(count);
 
             // Build View All page
             document.querySelector('.movie-list').setAttribute('id', category);
@@ -320,11 +307,6 @@ if (url === 'search.html') {
     }
 
 // Movie page
-    if (url === 'movie.html') {
-    // Movie page functions here
-    buildMoviePage();
-    }
-
     function buildMoviePage() {
         // Load stored data
         window.onload = () => {
@@ -347,4 +329,21 @@ if (url === 'search.html') {
             poster.src = movie['poster'];
             pageContainer.style.backgroundImage = `url(${movie['backdrop']})`;
         }
+    }
+
+// Error message
+    function errorMessage(selector) {
+        if (url === 'index.html') {
+            clearInterval(timer); // Stop Main Slider
+        }
+            const mainSlider = document.querySelector(selector);
+            const p = document.createElement('p');
+            p.classList.add('error-message');
+
+            p.innerHTML = `
+            Server Error
+            <br>
+            <a onclick="location.reload()">Try Again</a>
+            `
+            mainSlider.appendChild(p);
     }
